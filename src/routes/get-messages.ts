@@ -19,16 +19,16 @@ export class CS571GetMessagesRoute implements CS571Route {
         app.get(CS571GetMessagesRoute.ROUTE_NAME, async (req, res) => {
             const chatroom = (req.query.chatroom || "") as string;
             const numPosts = parseInt((req.query.num || "1") as string);
-            if (!this.chatrooms.includes(chatroom)) {
+            if (chatroom && !this.chatrooms.includes(chatroom)) {
                 res.status(404).send({
                     msg: "The specified chatroom does not exist. Chatroom names are case-sensitive."
                 });
                 return;
             }
 
-            if (isNaN(numPosts) || numPosts < 1 || numPosts > 100) {
+            if (isNaN(numPosts) || numPosts < 1 || numPosts > 10) {
                 res.status(400).send({
-                    msg: "Only between 1 and 100 posts may be returned."
+                    msg: "Only between 1 and 10 posts may be returned."
                 });
                 return;
             }
@@ -37,7 +37,7 @@ export class CS571GetMessagesRoute implements CS571Route {
 
             res.status(200).send({
                 msg: "Successfully got the latest messages!",
-                messages: messages.slice(numPosts)
+                messages: messages.slice(0, numPosts)
             });
         })
     }

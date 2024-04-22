@@ -78,7 +78,7 @@ If an invalid `num` is specified, a `400` will be returned.
 
 ```json
 {
-    "msg": "Only between 1 and 100 posts may be returned."
+    "msg": "Only between 1 and 10 posts may be returned."
 }
 ```
 
